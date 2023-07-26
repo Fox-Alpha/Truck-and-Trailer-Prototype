@@ -1,6 +1,8 @@
 extends VehicleBody3D
 
+## Status
 var attached : bool = false
+
 signal trailer_detached
 signal trailer_attached
 
@@ -26,6 +28,7 @@ func _on_trailer_detached():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 
+	## Wenn nicht angehängt Bremsen des Trailers aktivieren
 	if not attached:
 		brake = 50
 	else:

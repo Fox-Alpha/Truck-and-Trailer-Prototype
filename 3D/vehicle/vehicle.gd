@@ -3,6 +3,7 @@ extends VehicleBody3D
 const STEER_SPEED = 1.5
 const STEER_LIMIT = 0.3
 
+## Hinweistexte
 static var MSG_TRAILER_ATTACH = "Trailer can be attach"
 static var MSG_TRAILER_BREAK_FIRST = "Activate Hanbrake first !"
 static var MSG_TRAILER_FAILURE = "Activate Hanbrake first !"
@@ -13,20 +14,31 @@ static var MSG_TRAILER_FAILURE = "Activate Hanbrake first !"
 var previous_speed := linear_velocity.length()
 var _steer_target := 0.0
 
+## Status Variablen
 var handbrake : bool = false
 var trailerattached : bool = false
 var _canAttach : bool = false
+
+## Trailer
 var _trailer : VehicleBody3D = null
 var trailer_attacher_mark : Marker3D = null
 
+
+## Wichtige nodes Shorts
+
+## Joint punkt
 @onready var joint : PinJoint3D = get_node("StaticBody3D/AttachPlate/HingeJoint3D")
+## Label für Hinweise
 @onready var msglabel : Label3D = get_node("AttachMessage")
+## Trailer detection
 @onready var area_3d = $StaticBody3D/AttachPlate/Area3D
+## Marker für Ziel Position des Trailers
 @onready var attacher_mark = $StaticBody3D/AttachPlate/HingeJoint3D/AttacherMark
+## GUI: Handbremse & Attach Status
 @onready var hand_brake = $"../CanvasLayer/HandBrake"
 @onready var trailer_attached = $"../CanvasLayer/TrailerAttached"
 
-
+## Signal wenn Trailer in Reichweite
 signal trailer_can_attach(canAttach, trailer)
 #signal trailer_has_detached
 #signal trailer_has_attached
@@ -39,12 +51,15 @@ func _ready():
 	pass
 
 func _process(_delta):
-	var ac = Input.is_action_just_pressed("attach")
 	
+	## Hinweis anzeigen wenn Trailer in Reichweite
+	## Bedingungen: Handbremse angezogen, Kein Trailer angehängt, Trailer in Reichweite
 	if handbrake and not trailerattached and _canAttach:
 		msglabel.text = MSG_TRAILER_ATTACH
 		msglabel.visible = _canAttach
 	
+	## Aktion: Trailer anhängen (E)
+	var ac = Input.is_action_just_pressed("attach")
 	if ac and handbrake:
 		if _canAttach and _trailer:
 			# Attach the Trailer
@@ -58,30 +73,34 @@ func _process(_delta):
 #				var dir : Vector3 = trmark.global_position.direction_to(attacher_mark.global_position)
 				var attdist = trmark.global_position.distance_to(attacher_mark.global_position)
 				
-				# tween 
 #				var target_pos = _trailer.global_transform.origin + _trailer.global_position.direction_to(dir) * (attdist + _trailer.global_position.distance_to(dir))
 				var target_pos = _trailer.global_transform.origin + dir * (attdist)
-				print("TrailerMark: " + str(trmark.global_position))
-				print("AttacherMark: " + str(attacher_mark.global_position))
-				print("TrailerPos: " + str(_trailer.global_position))
-				print("TrailerPosGlobalTransform: " + str(_trailer.global_transform.origin))
+#				print("TrailerMark: " + str(trmark.global_position))
+#				print("AttacherMark: " + str(attacher_mark.global_position))
+#				print("TrailerPos: " + str(_trailer.global_position))
+#				print("TrailerPosGlobalTransform: " + str(_trailer.global_transform.origin))
 				target_pos.y = _trailer.global_transform.origin.y
-				print("TargetPos: " + str(target_pos))
+#				print("TargetPos: " + str(target_pos))
+
+				# tween
+				## Trailerposition per Tween anpassen
 				var tween : Tween = create_tween()
 				tween.set_parallel(true)
 #				await tween.tween_property(_trailer,"position",target_pos,0.5).finished
 				tween.tween_property(get_node("../Marker3D"),"global_position",target_pos,0.5)
 				await tween.tween_property(_trailer,"global_position",target_pos,1).finished
-				print("TrailerPosGlobalTransformAfterMove: " + str(_trailer.global_transform.origin))
-				print("TrailerMark: " + str(trmark.global_position))
-				print("AttacherMark: " + str(attacher_mark.global_position))
+
+#				print("TrailerPosGlobalTransformAfterMove: " + str(_trailer.global_transform.origin))
+#				print("TrailerMark: " + str(trmark.global_position))
+#				print("AttacherMark: " + str(attacher_mark.global_position))
 				
 				_trailer.emit_signal("trailer_attached")
 				
+				## Truck und Trailer zusammenhängen
 				joint.node_a = joint.get_path_to(self)
 				joint.node_b = joint.get_path_to(_trailer)
-				pass
 
+		## Trailer abhängen (E)
 		elif trailerattached:
 			joint.node_a = ""
 			joint.node_b = ""
@@ -91,9 +110,11 @@ func _process(_delta):
 			area_3d.get_node("CollisionShape3D").disabled = false
 			trailer_attached.color = Color.PALE_GREEN
 			
+	## Hinweis wenn Trailer in Reichweite und keine Handbremse aktiv
 	elif not handbrake:
 		msglabel.text = MSG_TRAILER_BREAK_FIRST
-		
+	
+	## Farbe für GUI ICON anpassen
 	if trailerattached:
 		trailer_attached.color = Color.PALE_GREEN
 	
@@ -115,14 +136,18 @@ func _physics_process(delta: float):
 #		Input.vibrate_handheld(100)
 #		for joypad in Input.get_connected_joypads():
 #			Input.start_joy_vibration(joypad, 0.0, 0.5, 0.1)
+
+	## Aktion: Handbremse (SPACE)
 	if Input.is_action_just_pressed("break"): 
 		if not handbrake:
+			# Bremskraft
 			brake = 50
 			engine_force = 0
 			handbrake = true
 		else:
 			handbrake = false
 			
+	## GUI Icon anzeigen, wenn aktiv
 	hand_brake.visible = handbrake
 		
 	if Input.is_action_pressed(&"accelerate") and not handbrake:
@@ -156,13 +181,16 @@ func _physics_process(delta: float):
 
 	steering = move_toward(steering, _steer_target, STEER_SPEED * delta)
 
+	## Wenn angehängt, Kraft auf Trailer weitergeben
+	## TODO: Notwendig ?
 	if trailerattached and is_instance_valid(_trailer):
 		_trailer.engine_force = engine_force
 
 	previous_speed = linear_velocity.length()
 
+## Ereignis/Signal Wenn Trailer in Reichweite
 func _on_TrailerCanAttach(canAttach : bool = true, trailer : VehicleBody3D = null):
-	print("_on_canTrailerAttach")
+#	print("_on_canTrailerAttach")
 
 	if is_instance_valid(trailer):
 		_trailer = trailer as VehicleBody3D
