@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cursgwddsd6si"]
+
+[resource]
+resource_name = "car_windows"
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.64, 0.64, 0.64, 1)
+metallic = 0.3
+roughness = 0.1

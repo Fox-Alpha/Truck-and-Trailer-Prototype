@@ -1,0 +1,126 @@
+[gd_scene load_steps=11 format=3 uid="uid://obxd31s22cwn"]
+
+[ext_resource type="PackedScene" uid="uid://cbkkn4io25wbx" path="res://vehicle/truck.tscn" id="1_lm6o4"]
+[ext_resource type="PackedScene" uid="uid://cyjaekjev2rn6" path="res://vehicle/trailer.tscn" id="2_a4qpf"]
+[ext_resource type="Texture2D" uid="uid://c2amu8xp1j5ep" path="res://scenes/texture_09.png" id="3_43xbp"]
+[ext_resource type="Texture2D" uid="uid://2hrtiuecru7q" path="res://scenes/circle.png" id="3_t2xkg"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p2edn"]
+
+[sub_resource type="Sky" id="Sky_pa338"]
+sky_material = SubResource("ProceduralSkyMaterial_p2edn")
+
+[sub_resource type="Environment" id="Environment_u2l4q"]
+background_mode = 2
+sky = SubResource("Sky_pa338")
+ambient_light_energy = 2.35
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sao24"]
+albedo_texture = ExtResource("3_43xbp")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0i5lq"]
+material = SubResource("StandardMaterial3D_sao24")
+size = Vector2(200, 200)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_24qsb"]
+points = PackedVector3Array(-100, 0, -100, -100, 0, 100, 100, 0, -100, 100, 0, 100)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_u2l4q")
+
+[node name="Truck" parent="." instance=ExtResource("1_lm6o4")]
+transform = Transform3D(-0.0206283, 0, -0.999787, 0, 1, 0, 0.999787, 0, -0.0206283, 1.33762, 0.425346, 0)
+
+[node name="CollisionShape3D" parent="Truck/StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.86265e-09, 0.2, 1.57362)
+disabled = true
+
+[node name="Camera3D" type="Camera3D" parent="Truck"]
+transform = Transform3D(-4.37114e-08, 0.422618, -0.906308, 0, 0.906308, 0.422618, 1, 1.84732e-08, -3.9616e-08, -5, 5, 0)
+visible = false
+
+[node name="Trailer" parent="." instance=ExtResource("2_a4qpf")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.28702, 0.337125, 0)
+
+[node name="Ground" type="StaticBody3D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("PlaneMesh_0i5lq")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("ConvexPolygonShape3D_24qsb")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.1055, 0)
+light_color = Color(0.611765, 1, 1, 1)
+light_bake_mode = 1
+sky_mode = 2
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 5, 8)
+
+[node name="Marker3D" type="Marker3D" parent="."]
+
+[node name="Sprite3D" type="Sprite3D" parent="Marker3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+billboard = 2
+texture = ExtResource("3_t2xkg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HandBrake" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -76.0
+offset_top = -60.0
+grow_horizontal = 0
+grow_vertical = 0
+color = Color(1, 0.0784314, 0.0470588, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/HandBrake"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -177.0
+offset_top = -44.0
+offset_right = -79.0
+offset_bottom = -18.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "HANDBRAKE"
+
+[node name="TrailerAttached" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -60.0
+offset_right = 76.0
+grow_vertical = 0
+color = Color(1, 1, 0.396078, 0.568627)
+
+[node name="Label" type="Label" parent="CanvasLayer/TrailerAttached"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = -42.0
+offset_right = 143.0
+offset_bottom = -16.0
+grow_vertical = 0
+text = "TRAILER"
+
+[editable path="Truck"]

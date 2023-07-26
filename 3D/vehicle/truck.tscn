@@ -1,0 +1,183 @@
+[gd_scene load_steps=16 format=3 uid="uid://cbkkn4io25wbx"]
+
+[ext_resource type="Script" path="res://vehicle/vehicle.gd" id="1_m2xlv"]
+[ext_resource type="Script" path="res://vehicle/area3D.gd" id="1_rlllg"]
+[ext_resource type="Script" path="res://vehicle/follow_camera.gd" id="2_0higm"]
+[ext_resource type="Texture2D" uid="uid://q7uvsiqefkwr" path="res://vehicle/truck_trailer.png" id="2_a0wui"]
+[ext_resource type="ArrayMesh" uid="uid://bqrwin8ccgptt" path="res://vehicle/meshes/wheel.res" id="2_atury"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ltata"]
+albedo_color = Color(0.176471, 1, 1, 1)
+albedo_texture = ExtResource("2_a0wui")
+
+[sub_resource type="BoxMesh" id="BoxMesh_jmist"]
+material = SubResource("StandardMaterial3D_ltata")
+size = Vector3(0.95, 1, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_achnn"]
+material = SubResource("StandardMaterial3D_ltata")
+size = Vector3(0.95, 0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5x3o5"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.243137)
+
+[sub_resource type="PrismMesh" id="PrismMesh_oi1i5"]
+material = SubResource("StandardMaterial3D_5x3o5")
+size = Vector3(0.9, 0.5, 0.9)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_p7wip"]
+points = PackedVector3Array(0.5, 0.5, 1, 0.5, -0.5, 1, 0.5, 0.5, -1, -0.5, 0.5, 1, -0.5, -0.5, 1, 0.5, -0.5, -1, -0.5, 0.5, -1, -0.5, -0.5, -1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7kx2y"]
+albedo_color = Color(1, 0.396078, 0.219608, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qug2y"]
+material = SubResource("StandardMaterial3D_7kx2y")
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.05
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y8f52"]
+size = Vector3(0.5, 0.341704, 0.75)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_30yfp"]
+points = PackedVector3Array(0, -0.025, -0.1, -0.00980815, -0.025, -0.0995302, 0, 0.025, -0.1, 0.00978857, -0.025, -0.0995302, -0.00980815, 0.025, -0.0995302, -0.0195184, -0.025, -0.0980814, 0.00978857, 0.025, -0.0995302, 0.0194988, -0.025, -0.0980814, -0.0195184, 0.025, -0.0980814, -0.0290329, -0.025, -0.0957126, 0.0194988, 0.025, -0.0980814, 0.0290133, -0.025, -0.0957126, -0.0290329, 0.025, -0.0957126, -0.0382733, -0.025, -0.0924041, 0.0290133, 0.025, -0.0957126, 0.0382537, -0.025, -0.0924041, -0.0382733, 0.025, -0.0924041, -0.0471417, -0.025, -0.088195, 0.0382537, 0.025, -0.0924041, 0.0471222, -0.025, -0.088195, -0.0471417, 0.025, -0.088195, -0.0555599, -0.025, -0.0831637, 0.0471222, 0.025, -0.088195, 0.0555403, -0.025, -0.0831637, -0.0555599, 0.025, -0.0831637, -0.0634495, -0.025, -0.0773101, 0.0555403, 0.025, -0.0831637, 0.0634299, -0.025, -0.0773101, -0.0634495, 0.025, -0.0773101, -0.0707126, -0.025, -0.0707126, 0.0634299, 0.025, -0.0773101, 0.070693, -0.025, -0.0707126, -0.0707126, 0.025, -0.0707126, -0.0773101, -0.025, -0.0634495, 0.070693, 0.025, -0.0707126, 0.0772905, -0.025, -0.0634495, -0.0773101, 0.025, -0.0634495, -0.0831637, -0.025, -0.0555599, 0.0772905, 0.025, -0.0634495, 0.0831441, -0.025, -0.0555599, -0.0831637, 0.025, -0.0555599, -0.088195, -0.025, -0.0471417, 0.0831441, 0.025, -0.0555599, 0.0881754, -0.025, -0.0471417, -0.088195, 0.025, -0.0471417, -0.0924041, -0.025, -0.0382733, 0.0881754, 0.025, -0.0471417, 0.0923845, -0.025, -0.0382733, -0.0924041, 0.025, -0.0382733, -0.0957126, -0.025, -0.0290329, 0.0923845, 0.025, -0.0382733, 0.095693, -0.025, -0.0290329, -0.0957126, 0.025, -0.0290329, -0.0980814, -0.025, -0.0195184, 0.095693, 0.025, -0.0290329, 0.0980619, -0.025, -0.0195184, -0.0980814, 0.025, -0.0195184, -0.0995302, -0.025, -0.00980815, 0.0980619, 0.025, -0.0195184, 0.0995106, -0.025, -0.00980815, -0.0995302, 0.025, -0.00980815, -0.1, -0.025, 0, 0.0995106, 0.025, -0.00980815, 0.1, -0.025, 0, -0.1, 0.025, 0, -0.0995302, -0.025, 0.00978857, 0.1, 0.025, 0, 0.0995106, -0.025, 0.00978857, -0.0995302, 0.025, 0.00978857, -0.0980814, -0.025, 0.0194988, 0.0995106, 0.025, 0.00978857, 0.0980619, -0.025, 0.0194988, -0.0980814, 0.025, 0.0194988, -0.0957126, -0.025, 0.0290133, 0.0980619, 0.025, 0.0194988, 0.095693, -0.025, 0.0290133, -0.0957126, 0.025, 0.0290133, -0.0924041, -0.025, 0.0382537, 0.095693, 0.025, 0.0290133, 0.0923845, -0.025, 0.0382537, -0.0924041, 0.025, 0.0382537, -0.088195, -0.025, 0.0471222, 0.0923845, 0.025, 0.0382537, 0.0881754, -0.025, 0.0471222, -0.088195, 0.025, 0.0471222, -0.0831637, -0.025, 0.0555403, 0.0881754, 0.025, 0.0471222, 0.0831441, -0.025, 0.0555403, -0.0831637, 0.025, 0.0555403, -0.0773101, -0.025, 0.0634299, 0.0831441, 0.025, 0.0555403, 0.0772905, -0.025, 0.0634299, -0.0773101, 0.025, 0.0634299, -0.0707126, -0.025, 0.070693, 0.0772905, 0.025, 0.0634299, 0.070693, -0.025, 0.070693, -0.0707126, 0.025, 0.070693, -0.0634495, -0.025, 0.0772905, 0.070693, 0.025, 0.070693, 0.0634299, -0.025, 0.0772905, -0.0634495, 0.025, 0.0772905, -0.0555599, -0.025, 0.0831441, 0.0634299, 0.025, 0.0772905, 0.0555403, -0.025, 0.0831441, -0.0555599, 0.025, 0.0831441, -0.0471417, -0.025, 0.0881754, 0.0555403, 0.025, 0.0831441, 0.0471222, -0.025, 0.0881754, -0.0471417, 0.025, 0.0881754, -0.0382733, -0.025, 0.0923845, 0.0471222, 0.025, 0.0881754, 0.0382537, -0.025, 0.0923845, -0.0382733, 0.025, 0.0923845, -0.0290329, -0.025, 0.095693, 0.0382537, 0.025, 0.0923845, 0.0290133, -0.025, 0.095693, -0.0290329, 0.025, 0.095693, -0.0195184, -0.025, 0.0980619, 0.0290133, 0.025, 0.095693, 0.0194988, -0.025, 0.0980619, -0.0195184, 0.025, 0.0980619, -0.00980815, -0.025, 0.0995106, 0.0194988, 0.025, 0.0980619, 0.00978857, -0.025, 0.0995106, -0.00980815, 0.025, 0.0995106, 0, -0.025, 0.1, 0.00978857, 0.025, 0.0995106, 0, 0.025, 0.1)
+
+[node name="Car" type="VehicleBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.314506, 0)
+collision_mask = 5
+center_of_mass_mode = 1
+script = ExtResource("1_m2xlv")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_jmist")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.242, 1.25)
+mesh = SubResource("BoxMesh_achnn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/MeshInstance3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.499, -0.248)
+mesh = SubResource("PrismMesh_oi1i5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+shape = SubResource("ConvexPolygonShape3D_p7wip")
+
+[node name="CameraBase" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.97449, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraBase"]
+transform = Transform3D(-1, -2.11495e-08, 8.48259e-08, 0, 0.970296, 0.241922, -8.74228e-08, 0.241922, -0.970296, 0, 2.032, -6)
+current = true
+fov = 74.0
+near = 0.1
+script = ExtResource("2_0higm")
+min_distance = 5.0
+max_distance = 7.0
+height = 1.75
+
+[node name="Wheels" type="Node3D" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.11744)
+
+[node name="AttachPlate" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("CylinderMesh_qug2y")
+skeleton = NodePath("../..")
+metadata/_edit_group_ = true
+
+[node name="HingeJoint3D" type="PinJoint3D" parent="StaticBody3D/AttachPlate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.101785)
+
+[node name="AttacherMark" type="Marker3D" parent="StaticBody3D/AttachPlate/HingeJoint3D"]
+visibility_parent = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="StaticBody3D/AttachPlate" node_paths=PackedStringArray("joint")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_rlllg")
+joint = NodePath("../HingeJoint3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/AttachPlate/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25)
+shape = SubResource("BoxShape3D_y8f52")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_30yfp")
+metadata/_edit_group_ = true
+
+[node name="InteriorCameraPosition" type="Marker3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.9, 0.96264)
+
+[node name="TopDownCameraPosition" type="Marker3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 0, 3.82137e-15, 4.37114e-08, 1, 8.74228e-08, 1, -4.37114e-08, 0.00169557, 15.7771, 0.0955178)
+
+[node name="FrontLeft" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.573678, 0.000773758, 0.79135)
+use_as_traction = true
+use_as_steering = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.18
+wheel_friction_slip = 1.0
+suspension_stiffness = 30.0
+damping_compression = 0.88
+
+[node name="Wheel1" type="MeshInstance3D" parent="FrontLeft"]
+layers = 2
+gi_mode = 2
+mesh = ExtResource("2_atury")
+
+[node name="FrontRight" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.573678, 0.000773758, 0.79135)
+use_as_traction = true
+use_as_steering = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.18
+wheel_friction_slip = 1.0
+suspension_stiffness = 30.0
+damping_compression = 0.88
+
+[node name="Wheel3" type="MeshInstance3D" parent="FrontRight"]
+layers = 2
+gi_mode = 2
+mesh = ExtResource("2_atury")
+
+[node name="RearLeft" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.574, 0, -0.783)
+use_as_traction = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.18
+wheel_friction_slip = 1.0
+suspension_stiffness = 30.0
+damping_compression = 0.88
+
+[node name="Wheel2" type="MeshInstance3D" parent="RearLeft"]
+layers = 2
+gi_mode = 2
+mesh = ExtResource("2_atury")
+
+[node name="RearRight" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.573678, 0.000773743, -0.783403)
+use_as_traction = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.18
+wheel_friction_slip = 1.0
+suspension_stiffness = 30.0
+damping_compression = 0.88
+
+[node name="Wheel4" type="MeshInstance3D" parent="RearRight"]
+layers = 2
+gi_mode = 2
+mesh = ExtResource("2_atury")
+
+[node name="AttachMessage" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.74282, 0)
+visible = false
+billboard = 2
+text = "Trailer can be attache"
+
+[connection signal="area_entered" from="StaticBody3D/AttachPlate/Area3D" to="StaticBody3D/AttachPlate/Area3D" method="_on_area_entered"]
+[connection signal="area_exited" from="StaticBody3D/AttachPlate/Area3D" to="StaticBody3D/AttachPlate/Area3D" method="_on_area_exited"]
