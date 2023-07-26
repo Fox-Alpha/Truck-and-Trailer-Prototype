@@ -1,9 +1,9 @@
 # Truck-and-Trailer-Prototype
 Kleine 2D + 3D Prototypen um zu testen wie man zwei Bodys per Joint verbindet
 
-
-## 3D Variante
-__Stand 26.07.2023__
+# 3D Variante
+> Stand 26.07.2023
+> Godot: 4.1 
 
 Bisher umgesetzt
 - Truck Model
@@ -27,7 +27,10 @@ Bisher umgesetzt
   - Anhägestatus (Ab-/angehängt, in Reichweite)
   - Handbremse (Aktiv)
 
-
-
 Geplant
 - Rückfahrkamera
+- Sounds
+
+# 2D Variante
+
+> Kommt demnächst
