@@ -38,6 +38,15 @@ var trailer_attacher_mark : Marker3D = null
 @onready var hand_brake = $"../CanvasLayer/HandBrake"
 @onready var trailer_attached = $"../CanvasLayer/TrailerAttached"
 
+## Spiegel Texturen
+# Links
+@onready var spiegel_links := $CanvasSpiegel/ColorRect/SpiegelLinks
+@onready var sub_viewport_left := $Body/MeshInstance3D/SpiegelLinks/SubViewportLeft
+# Rechts
+@onready var spiegel_rechts := $CanvasSpiegel/ColorRect/SpiegelRechts
+@onready var sub_viewport_right := $Body/MeshInstance3D/SpiegelRechts/SubViewportRight
+
+
 ## Signal wenn Trailer in Reichweite
 signal trailer_can_attach(canAttach, trailer)
 #signal trailer_has_detached
@@ -48,6 +57,14 @@ signal trailer_can_attach(canAttach, trailer)
 
 func _ready():
 	trailer_can_attach.connect(_on_TrailerCanAttach)
+#	sub_viewport_left.size = Vector2i(60,150)
+#	spiegel_links.texture = sub_viewport_left.get_texture()
+	sub_viewport_left.world_3d = get_viewport().world_3d
+#	print("Spiegel Links Size: " + str(sub_viewport_left.size))
+#	print("Spiegel Links Content Scale: " + str(sub_viewport_left.content_scale_size))
+#	spiegel_rechts.texture = sub_viewport_right.get_texture()
+#	sub_viewport_right.size = Vector2i(60,150)
+	sub_viewport_right.world_3d = get_viewport().world_3d
 	pass
 
 func _process(_delta):
