@@ -34,10 +34,6 @@ environment = SubResource("Environment_u2l4q")
 [node name="Truck" parent="." instance=ExtResource("1_lm6o4")]
 transform = Transform3D(-0.0206283, 0, -0.999787, 0, 1, 0, 0.999787, 0, -0.0206283, 1.33762, 0.425346, 0)
 
-[node name="CollisionShape3D" parent="Truck/StaticBody3D" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.86265e-09, 0.2, 1.57362)
-disabled = true
-
 [node name="Camera3D" type="Camera3D" parent="Truck"]
 transform = Transform3D(-4.37114e-08, 0.422618, -0.906308, 0, 0.906308, 0.422618, 1, 1.84732e-08, -3.9616e-08, -5, 5, 0)
 visible = false
@@ -122,5 +118,3 @@ offset_right = 143.0
 offset_bottom = -16.0
 grow_vertical = 0
 text = "TRAILER"
-
-[editable path="Truck"]

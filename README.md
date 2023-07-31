@@ -2,7 +2,7 @@
 Kleine 2D + 3D Prototypen um zu testen wie man zwei Bodys per Joint verbindet
 
 # 3D Variante
-> Stand 26.07.2023
+> Stand 31.07.2023
 > Godot: 4.1 
 
 Bisher umgesetzt
@@ -26,9 +26,10 @@ Bisher umgesetzt
 - GUI
   - Anhägestatus (Ab-/angehängt, in Reichweite)
   - Handbremse (Aktiv)
+  - Seiten Spiegel
+  - Rückfahrkamera
 
 Geplant
-- Rückfahrkamera
 - Sounds
 
 # 2D Variante
