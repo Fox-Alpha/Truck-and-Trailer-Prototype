@@ -1,10 +1,20 @@
-[gd_scene load_steps=16 format=3 uid="uid://cbkkn4io25wbx"]
+[gd_scene load_steps=23 format=3 uid="uid://cbkkn4io25wbx"]
 
 [ext_resource type="Script" path="res://vehicle/vehicle.gd" id="1_m2xlv"]
 [ext_resource type="Script" path="res://vehicle/area3D.gd" id="1_rlllg"]
 [ext_resource type="Script" path="res://vehicle/follow_camera.gd" id="2_0higm"]
 [ext_resource type="Texture2D" uid="uid://q7uvsiqefkwr" path="res://vehicle/truck_trailer.png" id="2_a0wui"]
 [ext_resource type="ArrayMesh" uid="uid://bqrwin8ccgptt" path="res://vehicle/meshes/wheel.res" id="2_atury"]
+[ext_resource type="Script" path="res://vehicle/SubViewportMirror.gd" id="3_23tw6"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_by78j"]
+viewport_path = NodePath("Body/MeshInstance3D/SpiegelLinks/SubViewportLeft")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6ctsl"]
+viewport_path = NodePath("Body/MeshInstance3D/SpiegelRechts/SubViewportRight")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_id7r7"]
+viewport_path = NodePath("Body/MeshInstance3D/MeshBackCam/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ltata"]
 albedo_color = Color(0.176471, 1, 1, 1)
@@ -25,6 +35,17 @@ albedo_color = Color(1, 1, 1, 0.243137)
 [sub_resource type="PrismMesh" id="PrismMesh_oi1i5"]
 material = SubResource("StandardMaterial3D_5x3o5")
 size = Vector3(0.9, 0.5, 0.9)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qj4kx"]
+albedo_color = Color(0.0784314, 0.152941, 0.137255, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3bph7"]
+material = SubResource("StandardMaterial3D_qj4kx")
+size = Vector3(0.1, 0.4, 0.01)
+
+[sub_resource type="SphereMesh" id="SphereMesh_i2qre"]
+radius = 0.05
+height = 0.1
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_p7wip"]
 points = PackedVector3Array(0.5, 0.5, 1, 0.5, -0.5, 1, 0.5, 0.5, -1, -0.5, 0.5, 1, -0.5, -0.5, 1, 0.5, -0.5, -1, -0.5, 0.5, -1, -0.5, -0.5, -1)
@@ -50,6 +71,84 @@ collision_mask = 5
 center_of_mass_mode = 1
 script = ExtResource("1_m2xlv")
 
+[node name="CanvasSpiegel" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasSpiegel"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -165.0
+offset_right = 185.0
+offset_bottom = 165.0
+grow_vertical = 2
+color = Color(0.266667, 0.266667, 0.266667, 1)
+
+[node name="SpiegelLinks" type="TextureRect" parent="CanvasSpiegel/ColorRect"]
+custom_minimum_size = Vector2(180, 320)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -160.0
+offset_right = 180.0
+offset_bottom = 160.0
+grow_vertical = 2
+texture = SubResource("ViewportTexture_by78j")
+expand_mode = 1
+flip_h = true
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasSpiegel"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -185.0
+offset_top = -165.0
+offset_bottom = 165.0
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0.266667, 0.266667, 0.266667, 1)
+
+[node name="SpiegelRechts" type="TextureRect" parent="CanvasSpiegel/ColorRect2"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -160.0
+offset_bottom = 160.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = SubResource("ViewportTexture_6ctsl")
+expand_mode = 1
+flip_h = true
+
+[node name="ColorRect3" type="ColorRect" parent="CanvasSpiegel"]
+custom_minimum_size = Vector2(390, 90)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+
+[node name="SpiegelHinten" type="TextureRect" parent="CanvasSpiegel/ColorRect3"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -190.0
+offset_right = 190.0
+offset_bottom = 80.0
+grow_horizontal = 2
+texture = SubResource("ViewportTexture_id7r7")
+expand_mode = 1
+
 [node name="Body" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_jmist")
@@ -61,6 +160,63 @@ mesh = SubResource("BoxMesh_achnn")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Body/MeshInstance3D"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.499, -0.248)
 mesh = SubResource("PrismMesh_oi1i5")
+
+[node name="SpiegelLinks" type="MeshInstance3D" parent="Body/MeshInstance3D"]
+transform = Transform3D(0.948124, 0, 0.3179, 0, 1, 0, -0.3179, 0, 0.948124, 0.5, 0.5, -0.3)
+mesh = SubResource("BoxMesh_3bph7")
+
+[node name="SubViewportLeft" type="SubViewport" parent="Body/MeshInstance3D/SpiegelLinks" node_paths=PackedStringArray("camparent", "cambase")]
+handle_input_locally = false
+size = Vector2i(180, 320)
+render_target_update_mode = 4
+script = ExtResource("3_23tw6")
+camparent = NodePath("..")
+cambase = NodePath("CamBaseLeft")
+
+[node name="CamBaseLeft" type="Node3D" parent="Body/MeshInstance3D/SpiegelLinks/SubViewportLeft"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.523817, 1.0717, 0.929107)
+
+[node name="CameraLeft" type="Camera3D" parent="Body/MeshInstance3D/SpiegelLinks/SubViewportLeft/CamBaseLeft"]
+transform = Transform3D(0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 0.03, 0, -0.01)
+fov = 60.0
+
+[node name="SpiegelRechts" type="MeshInstance3D" parent="Body/MeshInstance3D"]
+transform = Transform3D(0.948324, 0, -0.317305, 0, 1, 0, 0.317305, 0, 0.948324, -0.5, 0.5, -0.3)
+mesh = SubResource("BoxMesh_3bph7")
+
+[node name="SubViewportRight" type="SubViewport" parent="Body/MeshInstance3D/SpiegelRechts" node_paths=PackedStringArray("camparent", "cambase")]
+handle_input_locally = false
+msaa_3d = 1
+size = Vector2i(180, 320)
+render_target_update_mode = 4
+script = ExtResource("3_23tw6")
+camparent = NodePath("..")
+cambase = NodePath("CamBaseRight")
+
+[node name="CamBaseRight" type="Node3D" parent="Body/MeshInstance3D/SpiegelRechts/SubViewportRight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.515466, 1.06596, 0.934769)
+
+[node name="CameraRight" type="Camera3D" parent="Body/MeshInstance3D/SpiegelRechts/SubViewportRight/CamBaseRight"]
+transform = Transform3D(0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, -0.03, 0, -0.01)
+fov = 60.0
+
+[node name="MeshBackCam" type="MeshInstance3D" parent="Body/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.693096, -2.2304)
+mesh = SubResource("SphereMesh_i2qre")
+
+[node name="SubViewport" type="SubViewport" parent="Body/MeshInstance3D/MeshBackCam" node_paths=PackedStringArray("camparent", "cambase")]
+handle_input_locally = false
+size = Vector2i(380, 80)
+script = ExtResource("3_23tw6")
+camparent = NodePath("..")
+cambase = NodePath("CamBaseBack")
+
+[node name="CamBaseBack" type="Node3D" parent="Body/MeshInstance3D/MeshBackCam/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26309, -1.03032)
+
+[node name="CameraBack" type="Camera3D" parent="Body/MeshInstance3D/MeshBackCam/SubViewport/CamBaseBack"]
+transform = Transform3D(1, 0, 0, 0, 0.737843, 0.674972, 0, -0.674972, 0.737843, 0, 0, 0)
+fov = 101.7
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
