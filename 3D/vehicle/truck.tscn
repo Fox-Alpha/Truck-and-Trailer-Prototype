@@ -81,6 +81,7 @@ offset_top = -165.0
 offset_right = 185.0
 offset_bottom = 165.0
 grow_vertical = 2
+color = Color(0.266667, 0.266667, 0.266667, 1)
 
 [node name="SpiegelLinks" type="TextureRect" parent="CanvasSpiegel/ColorRect"]
 custom_minimum_size = Vector2(180, 320)
@@ -107,6 +108,7 @@ offset_top = -165.0
 offset_bottom = 165.0
 grow_horizontal = 0
 grow_vertical = 2
+color = Color(0.266667, 0.266667, 0.266667, 1)
 
 [node name="SpiegelRechts" type="TextureRect" parent="CanvasSpiegel/ColorRect2"]
 layout_mode = 1
@@ -133,6 +135,7 @@ offset_left = -20.0
 offset_right = 20.0
 offset_bottom = 40.0
 grow_horizontal = 2
+color = Color(0.0784314, 0.0784314, 0.0784314, 1)
 
 [node name="SpiegelHinten" type="TextureRect" parent="CanvasSpiegel/ColorRect3"]
 layout_mode = 1
