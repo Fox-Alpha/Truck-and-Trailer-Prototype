@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://obxd31s22cwn"]
+[gd_scene load_steps=13 format=3 uid="uid://obxd31s22cwn"]
 
 [ext_resource type="PackedScene" uid="uid://cbkkn4io25wbx" path="res://vehicle/truck.tscn" id="1_lm6o4"]
 [ext_resource type="PackedScene" uid="uid://cyjaekjev2rn6" path="res://vehicle/trailer.tscn" id="2_a4qpf"]
 [ext_resource type="Texture2D" uid="uid://c2amu8xp1j5ep" path="res://scenes/texture_09.png" id="3_43xbp"]
 [ext_resource type="Texture2D" uid="uid://2hrtiuecru7q" path="res://scenes/circle.png" id="3_t2xkg"]
+[ext_resource type="Texture2D" uid="uid://lxs22331exdt" path="res://scenes/handbremse.png" id="5_1hc4v"]
 [ext_resource type="Texture2D" uid="uid://db45fyxu4owat" path="res://scenes/Truck_and_Trailer.png" id="5_i45r6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p2edn"]
@@ -71,28 +72,33 @@ texture = ExtResource("3_t2xkg")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="HandBrake" type="ColorRect" parent="CanvasLayer"]
-anchors_preset = 3
-anchor_left = 1.0
+[node name="HandBrake" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -76.0
-offset_top = -60.0
-grow_horizontal = 0
+offset_left = -48.0
+offset_top = -96.0
+offset_right = 48.0
+grow_horizontal = 2
 grow_vertical = 0
-color = Color(1, 0.0784314, 0.0470588, 1)
+pivot_offset = Vector2(-10, -10)
+texture = ExtResource("5_1hc4v")
+expand_mode = 3
+stretch_mode = 4
 
 [node name="Label" type="Label" parent="CanvasLayer/HandBrake"]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -177.0
+offset_left = -239.0
 offset_top = -44.0
-offset_right = -79.0
+offset_right = -141.0
 offset_bottom = -18.0
 grow_horizontal = 0
 grow_vertical = 0
