@@ -36,7 +36,9 @@ var trailer_attacher_mark : Marker3D = null
 @onready var attacher_mark = $StaticBody3D/AttachPlate/HingeJoint3D/AttacherMark
 ## GUI: Handbremse & Attach Status
 @onready var hand_brake = $"../CanvasLayer/HandBrake"
-@onready var trailer_attached = $"../CanvasLayer/TrailerAttached"
+#@onready var trailer_attached = $"../CanvasLayer/TrailerAttached"
+@onready var trailer_attached = $"../CanvasLayer/TrailerTexture"
+
 
 ## Signal wenn Trailer in Reichweite
 signal trailer_can_attach(canAttach, trailer)
@@ -51,13 +53,13 @@ func _ready():
 	pass
 
 func _process(_delta):
-	
+
 	## Hinweis anzeigen wenn Trailer in Reichweite
 	## Bedingungen: Handbremse angezogen, Kein Trailer angehängt, Trailer in Reichweite
 	if handbrake and not trailerattached and _canAttach:
 		msglabel.text = MSG_TRAILER_ATTACH
 		msglabel.visible = _canAttach
-	
+
 	## Aktion: Trailer anhängen (E)
 	var ac = Input.is_action_just_pressed("attach")
 	if ac and handbrake:
@@ -72,7 +74,7 @@ func _process(_delta):
 				var dir : Vector3 = trmark.global_position.direction_to(Vector3(attacher_mark.global_position.x, _trailer.global_position.y, attacher_mark.global_position.z))
 #				var dir : Vector3 = trmark.global_position.direction_to(attacher_mark.global_position)
 				var attdist = trmark.global_position.distance_to(attacher_mark.global_position)
-				
+
 #				var target_pos = _trailer.global_transform.origin + _trailer.global_position.direction_to(dir) * (attdist + _trailer.global_position.distance_to(dir))
 				var target_pos = _trailer.global_transform.origin + dir * (attdist)
 #				print("TrailerMark: " + str(trmark.global_position))
@@ -93,9 +95,9 @@ func _process(_delta):
 #				print("TrailerPosGlobalTransformAfterMove: " + str(_trailer.global_transform.origin))
 #				print("TrailerMark: " + str(trmark.global_position))
 #				print("AttacherMark: " + str(attacher_mark.global_position))
-				
+
 				_trailer.emit_signal("trailer_attached")
-				
+
 				## Truck und Trailer zusammenhängen
 				joint.node_a = joint.get_path_to(self)
 				joint.node_b = joint.get_path_to(_trailer)
@@ -109,15 +111,17 @@ func _process(_delta):
 			trailerattached = false
 			area_3d.get_node("CollisionShape3D").disabled = false
 			trailer_attached.color = Color.PALE_GREEN
-			
+			trailer_attached.get_child(1).visible = trailerattached
+
 	## Hinweis wenn Trailer in Reichweite und keine Handbremse aktiv
 	elif not handbrake:
 		msglabel.text = MSG_TRAILER_BREAK_FIRST
-	
+
 	## Farbe für GUI ICON anpassen
 	if trailerattached:
 		trailer_attached.color = Color.PALE_GREEN
-	
+		trailer_attached.get_child(1).visible = trailerattached
+
 func _physics_process(delta: float):
 	var fwd_mps := (linear_velocity * transform.basis).x
 
@@ -138,7 +142,7 @@ func _physics_process(delta: float):
 #			Input.start_joy_vibration(joypad, 0.0, 0.5, 0.1)
 
 	## Aktion: Handbremse (SPACE)
-	if Input.is_action_just_pressed("break"): 
+	if Input.is_action_just_pressed("break"):
 		if not handbrake:
 			# Bremskraft
 			brake = 50
@@ -146,10 +150,10 @@ func _physics_process(delta: float):
 			handbrake = true
 		else:
 			handbrake = false
-			
+
 	## GUI Icon anzeigen, wenn aktiv
 	hand_brake.visible = handbrake
-		
+
 	if Input.is_action_pressed(&"accelerate") and not handbrake:
 		# Increase engine force at low speeds to make the initial acceleration faster.
 		var speed := linear_velocity.length()

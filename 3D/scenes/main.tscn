@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://obxd31s22cwn"]
+[gd_scene load_steps=12 format=3 uid="uid://obxd31s22cwn"]
 
 [ext_resource type="PackedScene" uid="uid://cbkkn4io25wbx" path="res://vehicle/truck.tscn" id="1_lm6o4"]
 [ext_resource type="PackedScene" uid="uid://cyjaekjev2rn6" path="res://vehicle/trailer.tscn" id="2_a4qpf"]
 [ext_resource type="Texture2D" uid="uid://c2amu8xp1j5ep" path="res://scenes/texture_09.png" id="3_43xbp"]
 [ext_resource type="Texture2D" uid="uid://2hrtiuecru7q" path="res://scenes/circle.png" id="3_t2xkg"]
+[ext_resource type="Texture2D" uid="uid://db45fyxu4owat" path="res://scenes/Truck_and_Trailer.png" id="5_i45r6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p2edn"]
 
@@ -71,7 +72,6 @@ texture = ExtResource("3_t2xkg")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HandBrake" type="ColorRect" parent="CanvasLayer"]
-visible = false
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -99,6 +99,7 @@ grow_vertical = 0
 text = "HANDBRAKE"
 
 [node name="TrailerAttached" type="ColorRect" parent="CanvasLayer"]
+visible = false
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -118,3 +119,31 @@ offset_right = 143.0
 offset_bottom = -16.0
 grow_vertical = 0
 text = "TRAILER"
+
+[node name="TrailerTexture" type="ColorRect" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 345.0
+offset_bottom = 115.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Truck" type="Sprite2D" parent="CanvasLayer/TrailerTexture"]
+modulate = Color(0.258824, 0.258824, 0.258824, 1)
+texture_filter = 1
+texture = ExtResource("5_i45r6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 180, 90)
+
+[node name="Trailer" type="Sprite2D" parent="CanvasLayer/TrailerTexture"]
+visible = false
+texture_filter = 1
+position = Vector2(-25, -25)
+texture = ExtResource("5_i45r6")
+centered = false
+offset = Vector2(205, 25)
+region_enabled = true
+region_rect = Rect2(181, 0, 136, 90)
