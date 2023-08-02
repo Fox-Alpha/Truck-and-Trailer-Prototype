@@ -1,7 +1,7 @@
 extends VehicleBody3D
 
-const STEER_SPEED = 1.5
-const STEER_LIMIT = 0.3
+const STEER_SPEED = 1.7
+const STEER_LIMIT = 0.5
 
 ## Hinweistexte
 static var MSG_TRAILER_ATTACH = "Trailer can be attach"
@@ -9,8 +9,9 @@ static var MSG_TRAILER_BREAK_FIRST = "Activate Hanbrake first !"
 static var MSG_TRAILER_FAILURE = "Activate Hanbrake first !"
 
 
-@export var engine_force_value := 40.0
-
+@export var engine_force_value := 1000.0
+@export var brake_force_value := 10.0
+@export var current_speed : float = 0.0
 var previous_speed := linear_velocity.length()
 var _steer_target := 0.0
 
@@ -72,29 +73,17 @@ func _process(_delta):
 				_canAttach = false
 				area_3d.get_node("CollisionShape3D").disabled = true
 				var dir : Vector3 = trmark.global_position.direction_to(Vector3(attacher_mark.global_position.x, _trailer.global_position.y, attacher_mark.global_position.z))
-#				var dir : Vector3 = trmark.global_position.direction_to(attacher_mark.global_position)
 				var attdist = trmark.global_position.distance_to(attacher_mark.global_position)
-
-#				var target_pos = _trailer.global_transform.origin + _trailer.global_position.direction_to(dir) * (attdist + _trailer.global_position.distance_to(dir))
 				var target_pos = _trailer.global_transform.origin + dir * (attdist)
-#				print("TrailerMark: " + str(trmark.global_position))
-#				print("AttacherMark: " + str(attacher_mark.global_position))
-#				print("TrailerPos: " + str(_trailer.global_position))
-#				print("TrailerPosGlobalTransform: " + str(_trailer.global_transform.origin))
+
 				target_pos.y = _trailer.global_transform.origin.y
-#				print("TargetPos: " + str(target_pos))
 
 				# tween
 				## Trailerposition per Tween anpassen
 				var tween : Tween = create_tween()
 				tween.set_parallel(true)
-#				await tween.tween_property(_trailer,"position",target_pos,0.5).finished
 				tween.tween_property(get_node("../Marker3D"),"global_position",target_pos,0.5)
 				await tween.tween_property(_trailer,"global_position",target_pos,1).finished
-
-#				print("TrailerPosGlobalTransformAfterMove: " + str(_trailer.global_transform.origin))
-#				print("TrailerMark: " + str(trmark.global_position))
-#				print("AttacherMark: " + str(attacher_mark.global_position))
 
 				_trailer.emit_signal("trailer_attached")
 
@@ -156,9 +145,10 @@ func _physics_process(delta: float):
 
 	if Input.is_action_pressed(&"accelerate") and not handbrake:
 		# Increase engine force at low speeds to make the initial acceleration faster.
-		var speed := linear_velocity.length()
-		if speed < 5.0 and not is_zero_approx(speed):
-			engine_force = clampf(engine_force_value * 5.0 / speed, 0.0, 100.0)
+		brake = 0.0
+#		var speed := linear_velocity.length()
+		if current_speed < 5.0 and not is_zero_approx(current_speed):
+			engine_force = clampf(engine_force_value * 5.0 / current_speed, 0.0, 250)
 		else:
 			engine_force = engine_force_value
 
@@ -170,28 +160,31 @@ func _physics_process(delta: float):
 	if Input.is_action_pressed(&"reverse") and not handbrake:
 		# Increase engine force at low speeds to make the initial acceleration faster.
 		if fwd_mps >= -1.0:
-			var speed := linear_velocity.length()
-			if speed < 5.0 and not is_zero_approx(speed):
-				engine_force = -clampf(engine_force_value * 5.0 / speed, 0.0, 100.0)
+#			var speed := linear_velocity.length()
+			if current_speed < 5.0 and not is_zero_approx(current_speed):
+				engine_force = -clampf(engine_force_value * 5.0 / current_speed, 0.0, 100.0)
 			else:
 				engine_force = -engine_force_value
 
 			# Apply analog brake factor for more subtle braking if not fully holding down the trigger.
 			engine_force *= Input.get_action_strength(&"reverse")
 		else:
-			brake = 5.0
-	else:
-		brake = 5.0
+			brake = 0.0
+#	else:
+#	brake = 3.0 #clampf(brake_force_value, 0.0, brake_force_value) * delta
 
 	steering = move_toward(steering, _steer_target, STEER_SPEED * delta)
 
 	## Wenn angehängt, Kraft auf Trailer weitergeben
 	## TODO: Notwendig ?
-	if trailerattached and is_instance_valid(_trailer):
-		_trailer.engine_force = engine_force
+#	if trailerattached and is_instance_valid(_trailer):
+#		_trailer.engine_force = engine_force
 
 	previous_speed = linear_velocity.length()
 
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	current_speed = state.linear_velocity.length()
+	pass
 ## Ereignis/Signal Wenn Trailer in Reichweite
 func _on_TrailerCanAttach(canAttach : bool = true, trailer : VehicleBody3D = null):
 #	print("_on_canTrailerAttach")
