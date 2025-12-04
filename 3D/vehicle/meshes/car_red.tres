@@ -1,7 +1,6 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://dqhwol1jm780f"]
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b5073iuf2wlvr"]
 
 [resource]
 resource_name = "car_red"
-vertex_color_use_as_albedo = true
-albedo_color = Color(0.906332, 0.133351, 0.133351, 1)
+albedo_color = Color(0.9063318, 0.13335146, 0.13335146, 1)
 roughness = 0.6

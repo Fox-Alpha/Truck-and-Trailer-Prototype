@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b22m5xc3t0t84"]
+
+[resource]
+resource_name = "car_yellow"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.583831, 0.527032, 0.189748, 1)
+roughness = 0.6

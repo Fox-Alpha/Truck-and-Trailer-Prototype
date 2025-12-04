@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://cyjaekjev2rn6"]
 
-[ext_resource type="Script" path="res://vehicle/trailer.gd" id="1_eq7vu"]
-[ext_resource type="ArrayMesh" uid="uid://bqrwin8ccgptt" path="res://vehicle/meshes/wheel.res" id="1_hmq3x"]
+[ext_resource type="Script" uid="uid://brjhtd8aiig8k" path="res://vehicle/trailer.gd" id="1_eq7vu"]
+[ext_resource type="ArrayMesh" uid="uid://bswj64rn47gqg" path="res://vehicle/meshes/meshes_wheel.res" id="1_hmq3x"]
 [ext_resource type="Texture2D" uid="uid://q7uvsiqefkwr" path="res://vehicle/truck_trailer.png" id="2_78wf5"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_l4260"]

@@ -1,11 +1,11 @@
 [gd_scene load_steps=23 format=3 uid="uid://cbkkn4io25wbx"]
 
-[ext_resource type="Script" path="res://vehicle/vehicle.gd" id="1_m2xlv"]
-[ext_resource type="Script" path="res://vehicle/area3D.gd" id="1_rlllg"]
-[ext_resource type="Script" path="res://vehicle/follow_camera.gd" id="2_0higm"]
+[ext_resource type="Script" uid="uid://3atfugtgt7i4" path="res://vehicle/vehicle.gd" id="1_m2xlv"]
+[ext_resource type="Script" uid="uid://uek724n614yq" path="res://vehicle/area3D.gd" id="1_rlllg"]
+[ext_resource type="Script" uid="uid://df7u6gjjs05o1" path="res://vehicle/follow_camera.gd" id="2_0higm"]
 [ext_resource type="Texture2D" uid="uid://q7uvsiqefkwr" path="res://vehicle/truck_trailer.png" id="2_a0wui"]
-[ext_resource type="ArrayMesh" uid="uid://bqrwin8ccgptt" path="res://vehicle/meshes/wheel.res" id="2_atury"]
-[ext_resource type="Script" path="res://vehicle/SubViewportMirror.gd" id="3_23tw6"]
+[ext_resource type="ArrayMesh" uid="uid://o3ssma3wm2xe" path="res://vehicle/meshes/meshes_wheel.res" id="2_atury"]
+[ext_resource type="Script" uid="uid://c32a41pks6gj5" path="res://vehicle/SubViewportMirror.gd" id="3_23tw6"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_by78j"]
 viewport_path = NodePath("Body/MeshInstance3D/SpiegelLinks/SubViewportLeft")

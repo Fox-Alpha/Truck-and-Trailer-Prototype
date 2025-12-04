@@ -1,0 +1,5 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c63ktq2sjs6k"]
+
+[resource]
+resource_name = "truck_trailer"
+roughness = 0.6

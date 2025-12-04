@@ -1,8 +1,7 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://b8f75ldnal8yh"]
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bgsvxlo08n3cn"]
 
 [resource]
 resource_name = "chrome"
-vertex_color_use_as_albedo = true
-albedo_color = Color(0.797738, 0.797738, 0.797738, 1)
+albedo_color = Color(0.7977378, 0.7977378, 0.7977378, 1)
 metallic = 1.0
 roughness = 0.35

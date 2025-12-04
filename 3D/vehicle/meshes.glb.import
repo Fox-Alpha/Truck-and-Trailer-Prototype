@@ -1,0 +1,132 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://e8iojcfvf11q"
+path="res://.godot/imported/meshes.glb-35d48dd20f3bea5090f4bafe34d80aa9.scn"
+
+[deps]
+
+source_file="res://vehicle/meshes.glb"
+dest_files=["res://.godot/imported/meshes.glb-35d48dd20f3bea5090f4bafe34d80aa9.scn"]
+
+[params]
+
+nodes/root_type="Node3D"
+nodes/root_name="Scene Root"
+nodes/root_script=null
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
+nodes/use_node_type_suffixes=true
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+materials/extract=0
+materials/extract_format=2
+materials/extract_path="res://vehicle/meshes"
+_subresources={
+"materials": {
+"car_blue": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://vehicle/meshes/car_blue.tres",
+"use_external/path": "uid://c4uhkwknxc8bu"
+},
+"car_red": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://vehicle/meshes/car_red.tres",
+"use_external/path": "uid://b5073iuf2wlvr"
+},
+"car_windows": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://vehicle/meshes/car_windows.tres",
+"use_external/path": "uid://cw5v7pp57ekqx"
+},
+"car_yellow": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://vehicle/meshes/car_yellow.tres",
+"use_external/path": "uid://dlpvqybl6r1sx"
+},
+"chrome": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://vehicle/meshes/chrome.tres",
+"use_external/path": "uid://bgsvxlo08n3cn"
+},
+"headlights": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://vehicle/meshes/headlights.tres",
+"use_external/path": "uid://c0fcfigysfhii"
+},
+"tire": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://vehicle/meshes/tire.tres",
+"use_external/path": "uid://c4kwgj7x0ef54"
+},
+"truck_trailer": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://vehicle/meshes/truck_trailer.tres",
+"use_external/path": "uid://c63ktq2sjs6k"
+}
+},
+"meshes": {
+"meshes_minivan": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://vehicle/meshes/meshes_minivan.res",
+"save_to_file/path": "uid://ceilp0o11g0od"
+},
+"meshes_tow_truck": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://vehicle/meshes/meshes_tow_truck.res",
+"save_to_file/path": "uid://cjs6kh1nrt2b1"
+},
+"meshes_truck_cab": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://vehicle/meshes/meshes_truck_cab.res",
+"save_to_file/path": "uid://3vygxrc0b8oo"
+},
+"meshes_truck_trailer": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://vehicle/meshes/meshes_truck_trailer.res",
+"save_to_file/path": "uid://c3ffq22xujbn2"
+},
+"meshes_wheel": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://vehicle/meshes/meshes_wheel.res",
+"save_to_file/path": "uid://bswj64rn47gqg"
+}
+}
+}
+gltf/naming_version=2
+gltf/embedded_image_handling=1

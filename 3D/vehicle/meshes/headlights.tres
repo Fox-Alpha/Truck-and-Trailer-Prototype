@@ -1,9 +1,8 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://bb534qarehl2t"]
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c0fcfigysfhii"]
 
 [resource]
 resource_name = "headlights"
-vertex_color_use_as_albedo = true
-albedo_color = Color(0.906332, 0.906332, 0.906332, 1)
+albedo_color = Color(0.9063318, 0.9063318, 0.9063318, 1)
 roughness = 0.5
 emission_enabled = true
-emission = Color(1, 0.936651, 0.853164, 1)
+emission = Color(1, 0.936651, 0.85316366, 1)
